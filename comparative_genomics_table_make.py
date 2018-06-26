@@ -59,4 +59,6 @@ handle_1.close()
 handle_2.close()
 
 df_3 = df_1.merge(df_2,how='left',left_on='ORTHOGROUP',right_on='ORTHOGROUP')
-df_3.to_excel(args.o)
+df_4 = df.sort_values(by=['ORTHOGROUP', 'SPC_1_RANK','SPC_2_RANK'])
+
+df_4.to_excel(args.o)
