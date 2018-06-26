@@ -17,7 +17,7 @@ df_1 = None
 df_2 = None
 i=0
 
-sys.stderr.write("Loading TSV #1 records into memory...")
+sys.stderr.write("Loading TSV #1 records into memory...\n")
 handle_1 = open(args.tsv1)
 handle_2 = open(args.tsv2)
 for line in handle_1.readlines():
@@ -36,7 +36,7 @@ for line in handle_1.readlines():
         df_1.loc[i] = subdict
         i+=1
 
-sys.stderr.write("Loading TSV #2 records into memory...")
+sys.stderr.write("Loading TSV #2 records into memory...\n")
 for line in handle_2.readlines():
     splitline = line.split("\t")
     subdict = dict()
@@ -52,13 +52,13 @@ for line in handle_2.readlines():
         df_2.loc[i] = subdict
         i+=1
 
-print(df_1)
-print(df_2)
 
 handle_1.close()
 handle_2.close()
 
 df_3 = df_1.merge(df_2,how='left',left_on='ORTHOGROUP',right_on='ORTHOGROUP')
-df_4 = df.sort_values(by=['ORTHOGROUP', 'SPC_1_RANK','SPC_2_RANK'])
+df_4 = df_3.sort_values(by=['SPC_1_RANK','ORTHOGROUP','SPC_2_RANK'])
 
+print(df_4)
+sys.stderr.write("Writing to file:"+args.o+"\n")
 df_4.to_excel(args.o)
